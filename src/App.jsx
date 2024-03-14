@@ -17,7 +17,7 @@ function App() {
 		[feedbackType]: values[feedbackType] + 1
 	});
   };
-  const rsetValues = () => {
+  const resetValues = () => {
     setValues({
   good: 0,
 	neutral: 0,
@@ -33,7 +33,7 @@ function App() {
             <p className="">
         Please leave your feedback about our service by selecting one of the options below.
       </p>
-      <Options onUpdateFeedback={updateFeedback} totalFeedback={totalFeedback} onResetVelues={rsetValues} />
+      <Options onUpdateFeedback={updateFeedback} totalFeedback={totalFeedback} onResetValues={resetValues} />
       {totalFeedback !== 0 ? <Feedback values={values} totalFeedback={totalFeedback} positiveFeedback={positiveFeedback } />: <Notification/>}
       
     </>
