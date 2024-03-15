@@ -1,14 +1,21 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import Options from './components/Options/Options'
 import Feedback from './components/Feedback/Feedback'
 import Notification from './components/Notification/Notification'
 
 function App() {
-  const [values, setValues] = useState({
+  const state={
   good: 0,
 	neutral: 0,
 	bad: 0
+  }
+  const [values, setValues] = useState(() => {
+    const savedValues = window.localStorage.getItem("saved-clicks");
+    if (savedValues !== null){
+      return JSON.parse(savedValues);
+    }
+    return state;
   })
   
   const updateFeedback = (feedbackType) => {
@@ -18,12 +25,12 @@ function App() {
 	});
   };
   const resetValues = () => {
-    setValues({
-  good: 0,
-	neutral: 0,
-	bad: 0
-  })
+    setValues(state)
   }
+
+   useEffect(() => {
+    window.localStorage.setItem("saved-clicks", JSON.stringify(values));
+  }, [values]);
 
   const totalFeedback = values.good + values.neutral + values.bad;
   const positiveFeedback = Math.round(((values.good + values.neutral ) / totalFeedback) * 100)
