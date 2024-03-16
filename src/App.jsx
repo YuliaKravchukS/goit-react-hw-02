@@ -3,13 +3,16 @@ import './App.css'
 import Options from './components/Options/Options'
 import Feedback from './components/Feedback/Feedback'
 import Notification from './components/Notification/Notification'
+import Description from './components/Description/Description'
+ 
 
-function App() {
-  const state={
+const state = {
   good: 0,
 	neutral: 0,
 	bad: 0
   }
+function App() {
+ 
   const [values, setValues] = useState(() => {
     const savedValues = window.localStorage.getItem("saved-clicks");
     if (savedValues !== null){
@@ -36,10 +39,7 @@ function App() {
   const positiveFeedback = Math.round(((values.good + values.neutral ) / totalFeedback) * 100)
   return (
     <>
-      <h1>Sip Happens Café</h1>
-            <p className="">
-        Please leave your feedback about our service by selecting one of the options below.
-      </p>
+      <Description/>
       <Options onUpdateFeedback={updateFeedback} totalFeedback={totalFeedback} onResetValues={resetValues} />
       {totalFeedback !== 0 ? <Feedback values={values} totalFeedback={totalFeedback} positiveFeedback={positiveFeedback } />: <Notification/>}
       
